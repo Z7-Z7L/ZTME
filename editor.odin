@@ -28,7 +28,6 @@ Tile_Data :: struct {
 @(private)
 Current_Tile :: struct {
   id      : int,
-  variant : string,
   texture : rl.Texture2D,
 }
 
@@ -88,7 +87,7 @@ main :: proc() {
   if (rl.IsKeyPressed(.KP_3) || rl.IsKeyPressed(.THREE)) {gridMode = !gridMode;}
 
   // Change Current Tile
-  if (rl.GetMouseWheelMove() > 0 && currentTile.id != len(world.textures) - 1) {
+  if (rl.GetMouseWheelMove() > 0 && currentTile.id != len(world.sprites) - 1) {
     currentTile.id += 1;
     //fmt.println("Current Tile ID: ", currentTile.id);
   }
@@ -102,9 +101,9 @@ main :: proc() {
   // Reset Offset
   if (rl.IsKeyPressed(.BACKSPACE)) {camera.offset = {0,0};}
 
-  for _, i in world.textures {
+  for _, i in world.sprites {
    if (currentTile.id == i) {
-    currentTile.texture = world.textures[i];
+    currentTile.texture = world.sprites[i].texture;
    }
   }
 
@@ -163,7 +162,7 @@ main :: proc() {
     if (gridMode) {
       tile: Tile;
       tile.id = currentTile.id;
-      tile.variant = currentTile.variant;
+      tile.variant = world.sprites[tile.id].variant;
 
       // Set the new tile position to the current mouse pos cell pos
       for cell in cells {
@@ -215,7 +214,7 @@ main :: proc() {
   /*** Game Loop ***/
 
   // Unload Textures
-  for _, i in world.textures {rl.UnloadTexture(world.textures[i]);}
+  for _, i in world.sprites {rl.UnloadTexture(world.sprites[i].texture);}
   
   // Close the window
   rl.CloseWindow();

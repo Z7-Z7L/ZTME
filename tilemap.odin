@@ -20,7 +20,7 @@ Sprite :: struct {
 
 World :: struct {
  tiles    : [dynamic]Tile,
- textures : [dynamic]rl.Texture2D,
+ sprites  : [dynamic]Sprite,
 }
 
 LoadMapFromJSON :: proc(file: string) -> [dynamic]Tile {
@@ -52,7 +52,7 @@ SaveMapToJSON :: proc(world: World, path: string) {
 Draw :: proc (world: ^World, showHitbox: bool) {
  if (world != nil) {
    for tile in world.tiles {
-     rl.DrawTextureEx(world.textures[tile.id], {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE}, 0, TILE_SCALE, rl.WHITE);
+     rl.DrawTextureEx(world.sprites[tile.id].texture, {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE}, 0, TILE_SCALE, rl.WHITE);
 
      if (showHitbox) {
        rl.DrawRectangleRec(tile.hitbox, rl.ColorAlpha(rl.BLUE, 0.3));
@@ -73,24 +73,18 @@ SetHitbox :: proc(world: World) {
 }
 
 LoadTextures :: proc(world: ^World, path: string) {
- Local_State :: struct {
-   total_entries : int,
-   path          : string,
-   texturess     : [dynamic]rl.Texture2D,
-   variant       : string,
- }
+  Local_State :: struct {
+    total_entries : int,
+    path          : string,
+    texturess     : [dynamic]rl.Texture2D,
+  }
  
- localState := Local_State{path = path};
+  localState := Local_State{path = path};
 
- if (os.is_dir(path)) {
-   filepath.walk(path, proc(info: os.File_Info, prev_err: os.Errno, user_data: rawptr) -> (err: os.Errno, skip_dir: bool) {
+  if (os.is_dir(path)) {
+    filepath.walk(path, proc(info: os.File_Info, prev_err: os.Errno, user_data: rawptr) -> (err: os.Errno, skip_dir: bool) {
       localState := (^Local_State)(user_data);
-
-      // Get the variant And Set the variant
-      variantPath := rl.TextFormat("%s", localState.path);
-      parts := strings.split(string(variantPath), "/");
-      localState.variant = parts[len(parts) - 1];
-
+      
       filePath := rl.TextFormat("%s/%d.png", localState.path, localState.total_entries);
 
       if (os.is_file(string(filePath))) {
@@ -102,14 +96,21 @@ LoadTextures :: proc(world: ^World, path: string) {
       }
      
       return 0, false
-   }, &localState.total_entries);
+    }, &localState.total_entries);
 
+    variantPath := rl.TextFormat("%s", path);
+    parts := strings.split(string(variantPath), "/");
+    vari := parts[len(parts) - 1];
+    
     for t in localState.texturess {
-      append(&world.textures, t);
-      fmt.println(localState.variant)
+      sp: Sprite;
+      sp.texture = t;
+      sp.variant = vari;
+
+      append(&world.sprites, sp);
     }
- }
- else {
-   fmt.eprintln("ERROR: The given path is not a directory!");
- }
+  }
+  else {
+    fmt.eprintln("ERROR: The given path is not a directory!");
+  }
 }
