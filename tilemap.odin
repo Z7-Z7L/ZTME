@@ -12,17 +12,15 @@ TILE_SCALE, TILE_SIZE :: 4, 64;
 
 MAP_WIDTH, MAP_HEIGHT :: 50, 50;
 
-/* Use this sprite struct instead of using a texture2d directly
+// Use this sprite struct instead of using a texture2d directly
 Sprite :: struct {
   texture : rl.Texture2D,
   variant : string,
 }
-*/
 
 World :: struct {
  tiles    : [dynamic]Tile,
  textures : [dynamic]rl.Texture2D,
- variants : [dynamic]string,
 }
 
 LoadMapFromJSON :: proc(file: string) -> [dynamic]Tile {
@@ -79,6 +77,7 @@ LoadTextures :: proc(world: ^World, path: string) {
    total_entries : int,
    path          : string,
    texturess     : [dynamic]rl.Texture2D,
+   variant       : string,
  }
  
  localState := Local_State{path = path};
@@ -87,12 +86,10 @@ LoadTextures :: proc(world: ^World, path: string) {
    filepath.walk(path, proc(info: os.File_Info, prev_err: os.Errno, user_data: rawptr) -> (err: os.Errno, skip_dir: bool) {
       localState := (^Local_State)(user_data);
 
-      // Get the variant
+      // Get the variant And Set the variant
       variantPath := rl.TextFormat("%s", localState.path);
       parts := strings.split(string(variantPath), "/");
-      vari := parts[len(parts) - 1];
-
-      // Set the variant to the new tile
+      localState.variant = parts[len(parts) - 1];
 
       filePath := rl.TextFormat("%s/%d.png", localState.path, localState.total_entries);
 
@@ -100,16 +97,17 @@ LoadTextures :: proc(world: ^World, path: string) {
         current_texture := rl.LoadTexture(filePath);
 
         append(&localState.texturess, current_texture);
- 
+        
         localState.total_entries += 1;
       }
      
       return 0, false
    }, &localState.total_entries);
 
-   for t in localState.texturess {
-     append(&world.textures, t);
-   }
+    for t in localState.texturess {
+      append(&world.textures, t);
+      fmt.println(localState.variant)
+    }
  }
  else {
    fmt.eprintln("ERROR: The given path is not a directory!");

@@ -1,6 +1,8 @@
 (To Do While Working)
 
+
 (Working on)
+Make the editor set the variant of the a tile based on its texture
 
 
 (Later)

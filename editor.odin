@@ -53,8 +53,6 @@ main :: proc() {
   LoadTextures(&world, "res/tiles/dirt");
   /*** Textures ***/
 
-  fmt.println(world.variants)
-
   // Set Tiles Hitbox
   SetHitbox(world);
 
@@ -91,21 +89,15 @@ main :: proc() {
 
   // Change Current Tile
   if (rl.GetMouseWheelMove() > 0 && currentTile.id != len(world.textures) - 1) {
-   currentTile.id += 1;
-   fmt.println("Current Tile ID: ", currentTile.id);
+    currentTile.id += 1;
+    //fmt.println("Current Tile ID: ", currentTile.id);
   }
   else if (rl.GetMouseWheelMove() < 0 && currentTile.id != 0) {
-   currentTile.id -= 1;
-   fmt.println("Current Tile ID: ", currentTile.id);
+    currentTile.id -= 1;
+    //fmt.println("Current Tile ID: ", currentTile.id);
   }
 
   // Set Current Tile Variant
-  if (currentTile.id >= 0 && currentTile.id <= 2) {
-    currentTile.variant = "grass";
-  }
-  else if (currentTile.id >= 3 && currentTile.id <= 8) {
-    currentTile.variant = "dirt";
-  }
 
   // Reset Offset
   if (rl.IsKeyPressed(.BACKSPACE)) {camera.offset = {0,0};}
@@ -189,14 +181,10 @@ main :: proc() {
       fmt.println(tile.variant)
       append(&world.tiles, tile);
     }
-    else {
+    else {}
 
-    }
-
-   }
-
-   // Erase Tile
-   if (rl.IsMouseButtonPressed(.RIGHT)) {
+   } // Erase Tile
+   else if (rl.IsMouseButtonPressed(.RIGHT)) {
     if (gridMode) {
       if (world.tiles != nil) {
         for tile, i in world.tiles {
@@ -206,9 +194,7 @@ main :: proc() {
         }
       }
     }
-    else {
-
-    }
+    else {}
    }
 
    // Draw Current Tile in the mouse position
