@@ -1,0 +1,27 @@
+(To Do While Working)
+
+(Working on)
+
+
+(Later)
+Add the settings in a menu
+Add in the settings menu a textbox for the map width and height
+Add GridMode
+
+
+(Bugs🐛) 
+Make it that you can Draw and Erase even if you holding the Left Mouse Button (Check if the cell have a tile) 
+And Make it that you can't draw more than one tile in each cell
+
+
+(Fixed Bugs)
+Make the cursor work with the camera when the camera changes the offset
+
+
+(Done)
+(✔)Move the draw method to a seperate function
+(✔)Make the save function
+(✔)Add a function that load textures by the file name to the textures array
+(✔)Make a tilemap.odin so I can use the tilemap without having to use the editor.odin  
+(✔)Set the variant from LoadTexture function to the new tiles
+(✔)Make the editor set the tile variant based on the folder name
