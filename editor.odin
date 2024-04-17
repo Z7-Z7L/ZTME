@@ -7,6 +7,7 @@ import "core:math"
 import "core:encoding/json"
 import "core:os"
 import "core:path/filepath"
+import "core:strings"
 
 SCREEN_WIDTH, SCREEN_HEIGHT :: 1920, 1080;
 
@@ -95,8 +96,6 @@ main :: proc() {
     currentTile.id -= 1;
     //fmt.println("Current Tile ID: ", currentTile.id);
   }
-
-  // Set Current Tile Variant
 
   // Reset Offset
   if (rl.IsKeyPressed(.BACKSPACE)) {camera.offset = {0,0};}
@@ -202,9 +201,9 @@ main :: proc() {
    // FPS And Current Tile And Settings
    rl.DrawTextureEx(currentTile.texture, {5, 30}, 0, 3, rl.ColorAlpha(rl.WHITE, 0.4));
    
-   rl.DrawText(rl.TextFormat("Show Grid: %t", showGrid), 0, 90, 23, rl.RAYWHITE);
-   rl.DrawText(rl.TextFormat("Show Hitbox: %t", showHitbox), 0, 120, 23, rl.RAYWHITE);
-   rl.DrawText(rl.TextFormat("Grid Mode: %t", gridMode), 0, 150, 23, rl.RAYWHITE);
+   rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Show Grid: %t", showGrid)), 0, 90, 23, rl.RAYWHITE);
+   rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Show Hitbox: %t", showHitbox)), 0, 120, 23, rl.RAYWHITE);
+   rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Grid Mode: %t", gridMode)), 0, 150, 23, rl.RAYWHITE);
 
    rl.DrawFPS(0, 0);
 

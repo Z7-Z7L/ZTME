@@ -2,8 +2,6 @@
 
 
 (Working on)
-Make the editor set the variant of the a tile based on its texture
-
 
 (Later)
 Add the settings in a menu
@@ -27,3 +25,4 @@ Make the cursor work with the camera when the camera changes the offset
 (✔)Make a tilemap.odin so I can use the tilemap without having to use the editor.odin  
 (✔)Set the variant from LoadTexture function to the new tiles
 (✔)Make the editor set the tile variant based on the folder name
+(✔)Make the editor set the variant of the a tile based on its texture

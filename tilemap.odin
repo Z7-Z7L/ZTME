@@ -85,10 +85,10 @@ LoadTextures :: proc(world: ^World, path: string) {
     filepath.walk(path, proc(info: os.File_Info, prev_err: os.Errno, user_data: rawptr) -> (err: os.Errno, skip_dir: bool) {
       localState := (^Local_State)(user_data);
       
-      filePath := rl.TextFormat("%s/%d.png", localState.path, localState.total_entries);
+      filePath := fmt.tprintf("%s/%d.png", localState.path, localState.total_entries);
 
       if (os.is_file(string(filePath))) {
-        current_texture := rl.LoadTexture(filePath);
+        current_texture := rl.LoadTexture(strings.clone_to_cstring(filePath));
 
         append(&localState.texturess, current_texture);
         
@@ -98,10 +98,9 @@ LoadTextures :: proc(world: ^World, path: string) {
       return 0, false
     }, &localState.total_entries);
 
-    variantPath := rl.TextFormat("%s", path);
-    parts := strings.split(string(variantPath), "/");
+    parts := strings.split(path, "/");
     vari := parts[len(parts) - 1];
-    
+
     for t in localState.texturess {
       sp: Sprite;
       sp.texture = t;
