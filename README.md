@@ -12,7 +12,9 @@ Eanble / Disable Grid Mode: three or num3 in the keyboard
 
 After you finish the map you just press `Enter` and it will save the map for you in a `map.json` (even if there is no `map.json` it will create `map.json` for you)
 
-Here is a example to how to load the map
+To load the map you will need to add `tilemap.odin` to your project
+
+Here is a example to how to load the map using `tilemap.odin`
 
 ```odin
 package game
