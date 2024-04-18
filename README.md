@@ -6,6 +6,7 @@ To use run `ZTME.exe` and it will start the editor
 NOTE: the Grid Mode isn't working for now I will do it later
 
 Controls:
+
 Show Grid: `one` in the keyboard
 
 
