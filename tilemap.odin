@@ -12,7 +12,19 @@ TILE_SCALE, TILE_SIZE :: 4, 64;
 
 MAP_WIDTH, MAP_HEIGHT :: 50, 50;
 
-// Use this sprite struct instead of using a texture2d directly
+@(private)
+Tile :: struct {
+ id      : int,
+ variant : string,
+ pos     : rl.Vector2,
+ hitbox  : rl.Rectangle,
+}
+
+@(private)
+Tile_Data :: struct {
+  tiles: [dynamic]Tile,
+}
+
 Sprite :: struct {
   texture : rl.Texture2D,
   variant : string,
@@ -43,13 +55,7 @@ LoadMapFromJSON :: proc(file: string) -> [dynamic]Tile {
  return result.tiles;
 }
 
-SaveMapToJSON :: proc(world: World, path: string) {
- data, err := json.marshal(world);
-
- os.write_entire_file(path, data);
-}
-
-Draw :: proc (world: ^World, showHitbox: bool) {
+DrawWorld :: proc (world: ^World, showHitbox: bool) {
  if (world != nil) {
    for tile in world.tiles {
      rl.DrawTextureEx(world.sprites[tile.id].texture, {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE}, 0, TILE_SCALE, rl.WHITE);
@@ -61,7 +67,7 @@ Draw :: proc (world: ^World, showHitbox: bool) {
  }
 }
 
-SetHitbox :: proc(world: World) {
+SetTilesHitbox :: proc(world: World) {
  if (world.tiles != nil) {
    for &tile in world.tiles {
      recHitbox: rl.Rectangle = {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE};
@@ -72,7 +78,7 @@ SetHitbox :: proc(world: World) {
  }
 }
 
-LoadTextures :: proc(world: ^World, path: string) {
+LoadTexturesToWorld :: proc(world: ^World, path: string) {
   Local_State :: struct {
     total_entries : int,
     path          : string,

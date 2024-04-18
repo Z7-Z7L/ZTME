@@ -11,21 +11,6 @@ import "core:strings"
 
 SCREEN_WIDTH, SCREEN_HEIGHT :: 1920, 1080;
 
-// Tile Variants {Grass, Dirt}
-
-@(private)
-Tile :: struct {
- id      : int,
- variant : string,
- pos     : rl.Vector2,
- hitbox  : rl.Rectangle,
-}
-
-@(private)
-Tile_Data :: struct {
-  tiles: [dynamic]Tile,
-}
-
 @(private)
 Current_Tile :: struct {
   id      : int,
@@ -38,6 +23,12 @@ Cell :: struct {
   pos   : rl.Vector2,
 }
 
+SaveMapToJSON :: proc(world: World, path: string) {
+  data, err := json.marshal(world);
+ 
+  os.write_entire_file(path, data);
+ }
+
 main :: proc() { 
   // Initialization
   rl.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "ZTME");
@@ -49,12 +40,12 @@ main :: proc() {
   world.tiles = LoadMapFromJSON("map.json");
 
   /*** Textures ***/
-  LoadTextures(&world, "res/tiles/grass");
-  LoadTextures(&world, "res/tiles/dirt");
+  LoadTexturesToWorld(&world, "res/tiles/grass");
+  LoadTexturesToWorld(&world, "res/tiles/dirt");
   /*** Textures ***/
 
   // Set Tiles Hitbox
-  SetHitbox(world);
+  SetTilesHitbox(world);
 
   // Settings
   showHitbox, showGrid, showCells, gridMode: bool = true, true, false, true;
@@ -134,7 +125,7 @@ main :: proc() {
    
    rl.BeginMode2D(camera);
     // Draw Tiles
-    Draw(&world, showHitbox);
+    DrawWorld(&world, showHitbox);
 
     // Draw Grid
     if (showGrid) {

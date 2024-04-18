@@ -2,12 +2,9 @@
 
 
 (Working on)
-
-(Later)
-Add the settings in a menu
-Add in the settings menu a textbox for the map width and height
 Add GridMode
 
+(Later)
 
 (Bugs🐛) 
 Make it that you can Draw and Erase even if you holding the Left Mouse Button (Check if the cell have a tile) 
