@@ -14,7 +14,7 @@ After you finish the map you just press `Enter` and it will save the map for you
 
 Here is a example to how to load the map
 
-```c++ 
+```odin
 package game
 
 import rl "vendor:raylib"
