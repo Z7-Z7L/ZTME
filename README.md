@@ -4,24 +4,17 @@
 To use run `ZTME.exe` and it will start the editor
 
 NOTE: the Grid Mode isn't working for now I will do it later
+<br> <br> <br>
+**Controls:**
 
-Controls:
-
-Show Grid: `one` in the keyboard
-
-
-Show Hitbox: `two` in the keyboard
-
-
-Eanble / Disable Grid Mode: `three` in the keyboard
-
-
-Save the map: `Enter`
-
-
-
-
-
+**Show Grid:** `one` in the keyboard
+<br><br>
+**Show Hitbox:** `two` in the keyboard
+<br><br>
+**Eanble / Disable Grid Mode:** `three` in the keyboard
+<br><br>
+**Save the map:** `Enter`
+<br> <br> <br>
 After you finish the map you just press `Enter` and it will save the map for you in a `map.json` (even if there is no `map.json` it will create `map.json` for you)
 
 To load the map you will need to add `tilemap.odin` to your project
