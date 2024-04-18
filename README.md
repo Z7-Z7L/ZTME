@@ -5,11 +5,20 @@ To use run `ZTME.exe` and it will start the editor
 
 NOTE: the Grid Mode isn't working for now I will do it later
 
-Controls: \n
-Show Grid: `one` in the keyboard \n
-Show Hitbox: `two` in the keyboard \n
-Eanble / Disable Grid Mode: `three` in the keyboard \n
+Controls:
+
+
+Show Grid: `one` in the keyboard
+
+
+Show Hitbox: `two` in the keyboard
+
+
+Eanble / Disable Grid Mode: `three` in the keyboard
+
+
 Save the map: `Enter`
+
 
 After you finish the map you just press `Enter` and it will save the map for you in a `map.json` (even if there is no `map.json` it will create `map.json` for you)
 
