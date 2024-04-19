@@ -6,14 +6,14 @@ Add GridMode
 
 (Later)
 
+
 (Bugs🐛) 
-Make it that you can Draw and Erase even if you holding the Left Mouse Button (Check if the cell have a tile) 
-And Make it that you can't draw more than one tile in each cell
 
 
-(Fixed Bugs)
-Make the cursor work with the camera when the camera changes the offset
-
+(Fixed Bugs🐛)
+(✔)Make the cursor work with the camera when the camera changes the offset
+(✔)Make it that you can Draw and Erase even if you holding the Left Mouse Button (Check if the cell have a tile) 
+(✔)And Make it that you can't draw more than one tile in each cell
 
 (Done)
 (✔)Move the draw method to a seperate function

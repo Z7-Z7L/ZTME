@@ -148,7 +148,7 @@ main :: proc() {
    rl.EndMode2D();
    
    // Draw new tile
-   if (rl.IsMouseButtonPressed(.LEFT)) {
+   if (rl.IsMouseButtonDown(.LEFT)) {
     if (gridMode) {
       tile: Tile;
       tile.id = currentTile.id;
@@ -161,19 +161,29 @@ main :: proc() {
         }
       }
 
-      // Hitbox
-      recHitbox: rl.Rectangle = {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE};
-            
-      // -1 is air
-      if (tile.id != -1) {tile.hitbox = recHitbox;}
+      canDraw: bool = true;
+      for t in world.tiles {
+        if (rl.CheckCollisionRecs(cursor, t.hitbox)) {
+          canDraw = false;
+          break;
+        }
+      }
       
-      fmt.println(tile.variant)
-      append(&world.tiles, tile);
+      if (canDraw) {
+        // Hitbox
+        recHitbox: rl.Rectangle = {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE};
+            
+        // -1 is air
+        if (tile.id != -1) {tile.hitbox = recHitbox;}
+      
+        fmt.println(tile.variant)
+        append(&world.tiles, tile);
+      }
     }
     else {}
 
    } // Erase Tile
-   else if (rl.IsMouseButtonPressed(.RIGHT)) {
+   else if (rl.IsMouseButtonDown(.RIGHT)) {
     if (gridMode) {
       if (world.tiles != nil) {
         for tile, i in world.tiles {
