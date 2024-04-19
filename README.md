@@ -13,6 +13,8 @@ NOTE: the Grid Mode isn't working for now I will do it later
 <br><br>
 **Eanble / Disable Grid Mode:** `three` in the keyboard
 <br><br>
+**Hitbox State:** `three` in the keyboard
+<br><br>
 **Save the map:** `Enter`
 <br> <br> <br>
 After you finish the map you just press `Enter` and it will save the map for you in a `map.json` (even if there is no `map.json` it will create `map.json` for you)
