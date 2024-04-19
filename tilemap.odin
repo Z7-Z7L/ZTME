@@ -14,10 +14,11 @@ MAP_WIDTH, MAP_HEIGHT :: 50, 50;
 
 @(private)
 Tile :: struct {
- id      : int,
- variant : string,
- pos     : rl.Vector2,
- hitbox  : rl.Rectangle,
+ id          : int,
+ variant     : string,
+ pos         : rl.Vector2,
+ hitbox      : rl.Rectangle,
+ hitboxState : bool,
 }
 
 @(private)
@@ -26,8 +27,8 @@ Tile_Data :: struct {
 }
 
 Sprite :: struct {
-  texture : rl.Texture2D,
-  variant : string,
+  texture     : rl.Texture2D,
+  variant     : string,
 }
 
 World :: struct {
@@ -58,11 +59,19 @@ LoadMapFromJSON :: proc(file: string) -> [dynamic]Tile {
 DrawWorld :: proc (world: ^World, showHitbox: bool) {
  if (world != nil) {
    for tile in world.tiles {
-     rl.DrawTextureEx(world.sprites[tile.id].texture, {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE}, 0, TILE_SCALE, rl.WHITE);
+      rl.DrawTextureEx(world.sprites[tile.id].texture, {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE}, 0, TILE_SCALE, rl.WHITE);
 
-     if (showHitbox) {
-       rl.DrawRectangleRec(tile.hitbox, rl.ColorAlpha(rl.BLUE, 0.3));
-     }
+      color: rl.Color;
+      if (tile.hitboxState) {
+        color = rl.ColorAlpha(rl.BLUE, 0.3);
+      }
+      else {
+        color = rl.ColorAlpha(rl.GRAY, 0.3);
+      }
+
+      if (showHitbox) {
+        rl.DrawRectangleRec(tile.hitbox, color);
+      }
    }
  }
 }

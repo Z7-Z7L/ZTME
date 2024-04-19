@@ -48,7 +48,7 @@ main :: proc() {
   SetTilesHitbox(world);
 
   // Settings
-  showHitbox, showGrid, showCells, gridMode: bool = true, true, false, true;
+  showHitbox, showGrid, showCells, gridMode, hitboxState: bool = true, true, false, true, true;
   
   currentTile: Current_Tile;
 
@@ -77,6 +77,7 @@ main :: proc() {
   if (rl.IsKeyPressed(.KP_1) || rl.IsKeyPressed(.ONE))   {showGrid = !showGrid;}
   if (rl.IsKeyPressed(.KP_2) || rl.IsKeyPressed(.TWO))   {showHitbox = !showHitbox;}
   if (rl.IsKeyPressed(.KP_3) || rl.IsKeyPressed(.THREE)) {gridMode = !gridMode;}
+  if (rl.IsKeyPressed(.KP_4) || rl.IsKeyPressed(.FOUR))  {hitboxState = !hitboxState;}
 
   // Change Current Tile
   if (rl.GetMouseWheelMove() > 0 && currentTile.id != len(world.sprites) - 1) {
@@ -153,6 +154,7 @@ main :: proc() {
       tile: Tile;
       tile.id = currentTile.id;
       tile.variant = world.sprites[tile.id].variant;
+      tile.hitboxState = hitboxState;
 
       // Set the new tile position to the current mouse pos cell pos
       for cell in cells {
@@ -172,10 +174,10 @@ main :: proc() {
       if (canDraw) {
         // Hitbox
         recHitbox: rl.Rectangle = {tile.pos.x * TILE_SIZE, tile.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE};
-            
+
         // -1 is air
         if (tile.id != -1) {tile.hitbox = recHitbox;}
-      
+
         fmt.println(tile.variant)
         append(&world.tiles, tile);
       }
@@ -205,6 +207,7 @@ main :: proc() {
    rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Show Grid: %t", showGrid)), 0, 90, 23, rl.RAYWHITE);
    rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Show Hitbox: %t", showHitbox)), 0, 120, 23, rl.RAYWHITE);
    rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Grid Mode: %t", gridMode)), 0, 150, 23, rl.RAYWHITE);
+   rl.DrawText(strings.clone_to_cstring(fmt.tprintf("Hitbox State: %t", hitboxState)), 0, 180, 23, rl.RAYWHITE);
 
    rl.DrawFPS(0, 0);
 

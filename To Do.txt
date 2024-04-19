@@ -23,3 +23,4 @@ Add GridMode
 (✔)Set the variant from LoadTexture function to the new tiles
 (✔)Make the editor set the tile variant based on the folder name
 (✔)Make the editor set the variant of the a tile based on its texture
+(✔)Add the Ability to make the tile hitbox off
