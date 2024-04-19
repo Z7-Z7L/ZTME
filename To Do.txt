@@ -5,7 +5,7 @@
 Add GridMode
 
 (Later)
-
+Create a simple platformer player with the a simple map
 
 (Bugs🐛) 
 
