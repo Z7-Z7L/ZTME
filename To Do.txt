@@ -5,7 +5,7 @@
 Add GridMode
 
 (Later)
-Create a simple platformer player with the a simple map
+Make the collision merge with the next tile if the next tile is the same variant as it
 
 (Bugs🐛) 
 
@@ -24,3 +24,4 @@ Create a simple platformer player with the a simple map
 (✔)Make the editor set the tile variant based on the folder name
 (✔)Make the editor set the variant of the a tile based on its texture
 (✔)Add the Ability to make the tile hitbox off
+(✔)Create a simple platformer player with the a simple map
